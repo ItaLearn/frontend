@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { API_URL } from '../../constants/api';
+
 export default function CriarCursoScreen() {
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
@@ -19,7 +21,7 @@ export default function CriarCursoScreen() {
       autor_email: autorEmail
     };
 
-    fetch('http://10.0.2.2:8000/minicursos', {
+    fetch(`${API_URL}/minicursos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,11 +39,11 @@ export default function CriarCursoScreen() {
         setDescricao('');
         setAutorEmail('');
         
-        router.replace('/home');
+        router.replace('/(tabs)/home');
       }
     })
     .catch(error => {
-      console.error(error);
+      console.error("ERRO NO FETCH DE CRIAR CURSO:", error);
       Alert.alert("Erro", "Não foi possível conectar ao servidor.");
     });
   };

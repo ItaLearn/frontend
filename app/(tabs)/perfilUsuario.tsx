@@ -1,10 +1,10 @@
 import { router } from 'expo-router';
 import {
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 export default function PerfilScreen() {
@@ -16,7 +16,6 @@ export default function PerfilScreen() {
   return (
     <View style={styles.container}>
 
-      {/* TOPO LARANJA */}
       <View style={styles.topo}>
 
         <Image
@@ -36,7 +35,6 @@ export default function PerfilScreen() {
 
       </View>
 
-      {/* MENU */}
       <View style={styles.menu}>
 
         <TouchableOpacity style={styles.itemMenu}>

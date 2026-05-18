@@ -9,6 +9,8 @@ import {
   View
 } from 'react-native';
 
+import { API_URL } from '../constants/api';
+
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -24,8 +26,7 @@ export default function LoginScreen() {
       senha: senha
     };
 
-    // ATENÇÃO: Troque "SEU_IP_AQUI" pelo IP do seu computador na rede Wi-Fi!
-    fetch('http://10.0.2.2:8000/login', {
+    fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credenciais)
@@ -35,7 +36,7 @@ export default function LoginScreen() {
         if (data.detail) {
           Alert.alert("Erro de Acesso", data.detail);
         } else {
-          router.replace('/home');
+          router.replace('/(tabs)/home');
         }
       })
       .catch(() => {
@@ -46,10 +47,8 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
 
-      {/* Título */}
       <Text style={styles.titulo}>Entrar</Text>
 
-      {/* Subtítulo transformado em Link! */}
       <Text style={styles.subtitulo}>
         Não possui conta?{' '}
         <Text style={styles.link} onPress={() => router.replace('/')}>
@@ -57,7 +56,6 @@ export default function LoginScreen() {
         </Text>
       </Text>
 
-      {/* Usuário */}
       <Text style={styles.label}>E-mail *</Text>
       <TextInput
         style={styles.input}
@@ -65,10 +63,9 @@ export default function LoginScreen() {
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
-        keyboardType="email-address" // Adicionei para o teclado abrir com o "@"
+        keyboardType="email-address"
       />
 
-      {/* Senha */}
       <Text style={styles.label}>Senha *</Text>
       <TextInput
         style={styles.input}
@@ -78,12 +75,10 @@ export default function LoginScreen() {
         secureTextEntry
       />
 
-      {/* Botão */}
       <TouchableOpacity style={styles.botaoPrimario} onPress={fazerLogin}>
         <Text style={styles.textoBotao}>Entrar</Text>
       </TouchableOpacity>
 
-      {/* Esqueci senha */}
       <Text style={styles.esqueci}>Esqueceu sua senha?</Text>
 
     </View>

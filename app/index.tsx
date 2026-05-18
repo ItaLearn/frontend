@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { API_URL } from '../constants/api';
+
 export default function CadastroScreen() {
   const [etapa, setEtapa] = useState(1);
 
@@ -44,7 +46,7 @@ export default function CadastroScreen() {
       profissao: profissao
     };
 
-    fetch('http://10.0.2.2:8000/usuarios', {
+    fetch(`${API_URL}/usuarios`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dadosUsuario)
@@ -55,10 +57,11 @@ export default function CadastroScreen() {
         Alert.alert("Atenção", data.detail);
       } else {
         Alert.alert("Sucesso!", data.mensagem);
-        router.replace('/home');
+        router.replace('/(tabs)/home');
       }
     })
-    .catch(() => {
+    .catch((erro) => {
+      console.error("ERRO NO FETCH DE CADASTRO:", erro);
       Alert.alert("Erro", "Não foi possível conectar ao servidor. Verifique o IP.");
     });
   };
