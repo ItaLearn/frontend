@@ -27,7 +27,9 @@ export default function PerfilScreen() {
 
         <Text style={styles.nome}>User444</Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push('/dadosUsuario')}
+        >
           <Text style={styles.meuPerfil}>
             Meu perfil {'>'}
           </Text>

@@ -8,10 +8,12 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-
 import { API_URL } from '../constants/api';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LoginScreen() {
+  const { login } = useAuth();
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -35,8 +37,10 @@ export default function LoginScreen() {
       .then(data => {
         if (data.detail) {
           Alert.alert("Erro de Acesso", data.detail);
-        } else {
-          router.replace('/(tabs)/home');
+        } else if (data.usuario) {
+          login(data.usuario).then(() => {
+            router.replace('/(tabs)/explorar');
+          });
         }
       })
       .catch(() => {
@@ -51,7 +55,7 @@ export default function LoginScreen() {
 
       <Text style={styles.subtitulo}>
         Não possui conta?{' '}
-        <Text style={styles.link} onPress={() => router.replace('/')}>
+        <Text style={styles.link} onPress={() => router.replace('/cadastro')}>
           Cadastre-se
         </Text>
       </Text>
